@@ -65,11 +65,13 @@ class AddResource extends PureComponent {
               delete values.houseType_3;
               delete values.houseType_4;
               delete values.houseType_5;
+              // 楼盘Id
+              values.estateId = this.state.estateId;
 
-
+              values.pic = [...this.state.pics].join(',');  
 
               dispatch({
-                    type: 'form/submitRegularForm',
+                    type: 'house/submitHouseForm',
                     payload: values,
                 });
             }
@@ -92,6 +94,16 @@ class AddResource extends PureComponent {
 
   handleFileList = (obj)=>{
     console.log(obj, "图片列表");
+    let pics = new Set();
+    obj.forEach((v, k) => {
+      if(v.response){
+        pics.add(v.response.name);
+      }
+    });
+
+    this.setState({
+      pics: pics
+    })
   }
 
 
@@ -155,6 +167,9 @@ class AddResource extends PureComponent {
                           <Input
                             prefix={<Icon type="environment" style={{ color: 'rgba(0,0,0,.25)' }} />}
                              value={this.state.estateAddress} defaultValue={this.state.estateAddress} readOnly/>
+                        </FormItem>
+                        <FormItem {...formItemLayout} label = "房源标题">
+                              {getFieldDecorator('title', {rules: [{required: true, message: "此项为必须项"}]})(<Input style={{ width: '100%'}} />)}
                         </FormItem>
                         <FormItem {...formItemLayout} label="楼栋">
                             <InputGroup compact>

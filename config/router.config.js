@@ -18,7 +18,7 @@ export default [
     authority: ['admin', 'user'],
     routes: [
 
-      { path: '/', redirect: '/dashboard/analysis' },
+      { path: '/', redirect: '/house/resource' },
 
       { //房源管理
         path: '/house',

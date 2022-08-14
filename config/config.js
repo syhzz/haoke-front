@@ -60,11 +60,18 @@ export default {
   externals: {
     '@antv/data-set': 'DataSet',
   },
+  proxy: {
+    '/haoke/': {
+      target: 'http://127.0.0.1:18080',
+      changeOrigin: true,
+      pathRewrite: { '^/haoke/': '' },
+    },
+  },
   // proxy: {
-  //   '/server/api/': {
-  //     target: 'https://preview.pro.ant.design/',
-  //     changeOrigin: true,
-  //     pathRewrite: { '^/server': '' },
+  //   '/haoke/': {
+  //     'target': 'http://127.0.0.1:18080',
+  //     'changeOrigin': true,
+  //     'pathReWrite': { '^/haoke/': '' },
   //   },
   // },
   ignoreMomentLocale: true,
