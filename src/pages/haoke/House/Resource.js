@@ -43,36 +43,45 @@ class Resource extends PureComponent {
   columns = [
     {
       title: '房源编号',
-      dataIndex: 'name',
+      dataIndex: 'id',
     },
     {
       title: '房源信息',
-      dataIndex: 'desc',
+      dataIndex: 'title',
     },
     {
       title: '图',
-      dataIndex: 'pic'
+      dataIndex: 'pic',
+      render: (text, record, index) => {
+        return <ShowPics pics={text}/>
+      }
     },
     {
-      title: '委托人',
-      dataIndex: 'status'
+      title: '楼栋',
+      render : (text, record, index) => {
+        return record.buildingFloorNum + "栋" + record.buildingNum + "单元" + record.buildingUnit +"号"
+      }
     },
     {
-      title: '委托时间',
-      dataIndex: 'updatedAt',
-      render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
+      title: '支付方式',
+      render: (text, record, index) => {
+        return payType.get(record.paymentMethod)
+      },
     },
     {
-      title: '咨询量',
-      dataIndex: 'status'
+      title: '户型',
+      dataIndex: 'houseType'
     },
     {
-      title: '看房量',
-      dataIndex: 'status'
+      title: '面积',
+      dataIndex: 'userArea',
+      render: (text, record, index) => {
+        return text + "平方"
+      }
     },
     {
-      title: '状态',
-      dataIndex: 'status'
+      title: '楼层',
+      dataIndex: 'floor'
     },
     {
       title: '操作',
