@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
+import ShowPics from './models/ShowPic';
 import {
   Row,
   Col,
@@ -16,6 +17,7 @@ import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 import styles from '../TableList.less';
+import EditResource from './EditResource';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -53,20 +55,16 @@ class Resource extends PureComponent {
       title: '图',
       dataIndex: 'pic',
       render: (text, record, index) => {
-        return <ShowPics pics={text}/>
+        return <ShowPics pics={text} />
       }
     },
     {
       title: '楼栋',
-      render : (text, record, index) => {
-        return record.buildingFloorNum + "栋" + record.buildingNum + "单元" + record.buildingUnit +"号"
-      }
+      render : (text, record, index) => record.buildingFloorNum + "栋" + record.buildingNum + "单元" + record.buildingUnit +"号"
     },
     {
       title: '支付方式',
-      render: (text, record, index) => {
-        return payType.get(record.paymentMethod)
-      },
+      render: (text, record, index) => payType.get(record.paymentMethod),
     },
     {
       title: '户型',
@@ -74,10 +72,8 @@ class Resource extends PureComponent {
     },
     {
       title: '面积',
-      dataIndex: 'userArea',
-      render: (text, record, index) => {
-        return text + "平方"
-      }
+      dataIndex: 'userArea',.
+      render: (text, record, index) => text + "平方"
     },
     {
       title: '楼层',
@@ -87,13 +83,22 @@ class Resource extends PureComponent {
       title: '操作',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => this.handleUpdateModalVisible(true, record)}>查看详情</a>
+          <a onClick={() => {}}>查看</a>
           <Divider type="vertical" />
-          <a href="">订阅警报</a>
+          <EditResource record={record} reload={this.reload.bind(this)}/>
+          <Divider type='vertical' />
+          <a href="">删除</a>
         </Fragment>
       ),
-    },
+    }
   ];
+
+  reload(){
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'houseResource/fetch'
+    })
+  }
 
   componentDidMount() { //当组件挂载完成后执行加载数据
     console.log("loading.......");
