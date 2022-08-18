@@ -6,3 +6,10 @@ export async function addHouseResource(params){
         body: params,
     });
 }
+
+export async function updateHouseResource(params){
+    return request('/haoke/house/resources', {
+        method: 'PUT',
+        body: params,
+    })
+}
